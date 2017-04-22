@@ -1,0 +1,41 @@
+
+# Indentation is Imporant
+# Note : Don't use Tabulation 
+          
+driverClassName : org.postgresql.Driver
+connectionUrl   : jdbc:postgresql://127.0.0.1/aero
+userName        : db_user
+password        : password_user
+
+#authentication : # using HTTP
+# type : customSignOn   
+# secured : [ vip_planes ]
+# credentials :  # used table for authentication 
+#   tableName          : users
+#   loginColumnName    : login
+#   passwordColumnName : password -> MD5  # Default Storage : PLAIN
+# paramToSign : #  Ex : Signature = SHA1 ( login + MD5 ( password ) + timeStamp )
+#   login     : PLAIN 
+#   password  : MD5   # password hashed using MD5 Algo in the signature of the request 
+#   timeStamp : PLAIN
+# algoSign    : SHA1
+# validRequestTimeout : 30  # timeStamp difference between client and server side ( in secondes )
+
+#authentication  :
+#  type          : SSO 
+#  keycloakFile  : keyCloack.json # Path of the keyCloack file
+#  secured       :
+#    vip_planes  : 
+#      GET   : [ admin ]
+#      POST  : [ admin ]
+
+
+Services :
+ - planes :
+    sql : > 
+           SELECT model , total_passengers , distance_km  FROM aircraft
+    order : " "
+# - vip_planes :
+#    sql : > 
+#           SELECT * FROM aircraft
+#    order : " "
