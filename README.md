@@ -8,6 +8,9 @@
 
  **Jax-Y** is Generic Jax-Rs web Service based over yaml configuration implementing the project  **[G-Jax-Api]( https://github.com/rac021/G-Jax-Api)**
 
+**SourceForge Download Link** : **[https://sourceforge.net/projects/jax-y/?source=typ_redirect]( https://sourceforge.net/projects/jax-y/?source=typ_redirect)** 
+
+
 ------------------------------------------------------
 
 **Linked Projects :** 
