@@ -6,25 +6,31 @@
  
  **Demo :** 
  
- 
- I )   Install demo Database :
+  
+ I )   Download : 
+    
+       1 ) download jax-y-demo.zip from the link above
+   
+       2 ) unzip jax-y-demo.zip
+  
+ II )  Install demo Database :
  
         1 )  chmod +x demo/db-script/db-planes.sh 
  
         2 )  ./demo/db-script/db-planes.sh 
        
        
- II )  Run The executable Jar which deploy an endpoint at the URL : http://localhost:8080/rest/resources/
+ III )  Run The executable Jar which deploy an endpoint at the URL : http://localhost:8080/rest/resources/
  
         1 )  java -jar jax-y-swarm.jar
        
  
- III ) Run the GUI Client :
+ IV ) Run the GUI Client :
         
         1 )  java -jar GUI/jaxy-ui.jar
        
         
- IV ) Tests ( Public serivce ) :
+ V ) Tests ( Public serivce ) :
  
         1 ) Invoke the serviceDiscovery : 
             http://localhost:8080/rest/resources/infoServices
@@ -39,7 +45,7 @@
         5 ) Sort Only model + distance_km    :  model - distance_km
        
 
- V  ) Add new Secured Service ( customSignOn authentication ) :
+ VI  ) Add new Secured Service ( customSignOn authentication ) :
  
         1 ) Stop the server
          
@@ -73,7 +79,7 @@
        13 ) Change Tags using "AS" in SQL Queries
          
 
- VI ) Test SSO authentication with KeyCloack ( should works with HTTPS ) :
+ VII ) Test SSO authentication with KeyCloack ( should works with HTTPS ) :
 
         1 ) Start KeyCloack SERVER ( 127.0.0.1:8180 )
  
@@ -105,7 +111,7 @@
        13 ) Check logs in KeyCloack server for the user admin
          
    
- VI ) Generate Shell-script for automation 
+ VIII ) Generate Shell-script for automation 
  
         1 ) Generate script 
          
