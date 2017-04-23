@@ -116,7 +116,7 @@
  
        * Swagger-Angular-Client intergration 
        
-       * Runtime Alog Choice for Encryption ( AES - DES ... )
+       * Runtime Algo Choice for Encryption ( AES - DES ... )
 
        * Global Configuration Supports ( Thread pool size, nb of threads by service, data queue size ... 
          authentication server, HTTPS ...  )
