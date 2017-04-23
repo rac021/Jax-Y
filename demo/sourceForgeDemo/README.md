@@ -69,6 +69,8 @@
        11 ) Sort Only model                  :  model
          
        12 ) Sort Only model + distance_km    :  model - distance_km
+       
+       13 ) Change Tags using "AS" in SQL Queries
          
 
  VI ) Test SSO authentication with KeyCloack ( should works with HTTPS ) :
