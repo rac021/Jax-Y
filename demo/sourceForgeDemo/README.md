@@ -121,6 +121,6 @@
        * Global Configuration Supports ( Thread pool size, nb of threads by service, data queue size ... 
          authentication server, HTTPS ...  )
               
-       * GUI Https supports  
+       * GUI Client Https supports  
        
        
