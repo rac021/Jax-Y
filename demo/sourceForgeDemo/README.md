@@ -112,7 +112,7 @@
         2 ) test Script 
        
        
- Upcoming Features :
+ **Upcoming Features :**
  
        * Swagger-Angular-Client intergration 
        
