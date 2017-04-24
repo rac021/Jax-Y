@@ -62,7 +62,7 @@
             http://localhost:8080/rest/resources/vip_planes 
             ( XML / JSON / XML-ENCRYPTED / JSON-ENCRYPTED )
          
-        8 ) Test authentication by changing login / password / timeStamp. t
+        8 ) Test authentication by changing login / password / timeStamp
             Test timeOut // test SQL type inference capacity
 
         9 ) Decrypt data locally 
