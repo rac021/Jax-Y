@@ -120,13 +120,19 @@
        
  **Upcoming Features :**
  
+       * Global Configuration Supports ( Thread pool size, nb of threads by service, data queue size ... 
+         authentication server, HTTPS ...  )
+  
        * Swagger-Angular-Client intergration 
+                            
+       * GUI Client Https supports  
        
        * Runtime Algo Choice for Encryption ( AES - DES ... )
 
-       * Global Configuration Supports ( Thread pool size, nb of threads by service, data queue size ... 
-         authentication server, HTTPS ...  )
-              
-       * GUI Client Https supports  
+       * Randomize IV ( Initialization Vector ) for AES ..
+  
+       * Add support of NoSQL databases ??
+       
+       * Tests Tests & Tests
        
        
