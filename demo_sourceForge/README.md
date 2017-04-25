@@ -58,25 +58,25 @@
         5 ) Invoke the serviceDiscovery : 
             http://localhost:8080/rest/resources/infoServices
          
-        7 ) Invoke the service vip_planes : 
+        6 ) Invoke the service vip_planes : 
             http://localhost:8080/rest/resources/vip_planes 
             ( XML / JSON / XML-ENCRYPTED / JSON-ENCRYPTED )
          
-        8 ) Test authentication by changing login / password / timeStamp
+        7 ) Test authentication by changing login / password / timeStamp
             Test timeOut // test SQL type inference capacity
 
-        9 ) Decrypt data locally 
+        8 ) Decrypt data locally 
          
-       10 ) Filter on total_pssengers > 300   
+        9 ) Filter on total_pssengers > 300   
                       total_passengers=_>_300 
                       total_passengers=_>_300&model='Airbus A340-500'
                       total_passengers=_>_300&model=_not_'Airbus A340-500'
          
-       11 ) Sort Only model                  :  model
+       10 ) Sort Only model                  :  model
          
-       12 ) Sort Only model + distance_km    :  model - distance_km
+       11 ) Sort Only model + distance_km    :  model - distance_km
        
-       13 ) Change Tags using "AS" in SQL Queries
+       12 ) Change Tags using "AS" in SQL Queries
          
 
  VII ) Test SSO authentication with KeyCloack ( should works with HTTPS ) :
