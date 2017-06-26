@@ -10,8 +10,10 @@ import javax.ws.rs.core.UriInfo ;
 import javax.ws.rs.core.Context ;
 import javax.ws.rs.core.Response ;
 import javax.annotation.PostConstruct ;
+import com.rac021.jax.api.crypto.CipherTypes ;
 import com.rac021.jax.api.qualifiers.security.Policy ;
 import com.rac021.jax.api.qualifiers.security.Public ;
+import com.rac021.jax.api.qualifiers.security.Cipher ;
 import com.rac021.jax.api.qualifiers.ServiceRegistry ;
 import com.rac021.jax.api.qualifiers.ResourceRegistry ;
 import com.rac021.jax.api.streamers.StreamerOutputXml ;
@@ -20,14 +22,15 @@ import com.rac021.jax.api.streamers.StreamerOutputJson ;
 import com.rac021.jax.api.streamers.StreamerOutputXmlEncrypted ;
 import com.rac021.jax.api.streamers.DefaultStreamerConfigurator ;
 import com.rac021.jax.api.streamers.StreamerOutputJsonEncrypted ;
-
 /**
  *
- * @author R.Yahioaui
+ * @author R.Yahiaoui
  */
 
 @ServiceRegistry("{SERVICE_CODE}")
 {SECURITY}
+@Cipher( cipherType = { {CIPHERS} } )
+
 public class {SERVICE_NAME}      {
 
     @ResourceRegistry("{RESOURCE_CODE}")
@@ -54,7 +57,7 @@ public class {SERVICE_NAME}      {
    
     @GET
     @Produces("xml/plain")
-    public Response getResourceASXml( @HeaderParam("sort") String filterdIndex, @Context UriInfo uriInfo , {SQL_PARAMS} ) {    
+    public Response getResourceASXml( @HeaderParam("keep") String filterdIndex, @Context UriInfo uriInfo , {SQL_PARAMS} ) {    
 
         /**
         * DefaultStreamerConfigurator defaultStreamerConfigurator = new
@@ -68,13 +71,16 @@ public class {SERVICE_NAME}      {
         System.out.println(" G-JAX - Process : getResourceASXml ... ") ; 
 
         return Response.status(Response.Status.OK)
-                       .entity( streamerOutputXml.wrapResource({RESOURCE_NAME} , {DTO_CLASS} , filterdIndex, uriInfo.getQueryParameters() ))
+                       .entity( streamerOutputXml.wrapResource( {RESOURCE_NAME}           , 
+                                                                {DTO_CLASS}               ,
+                                                                filterdIndex              , 
+                                                                uriInfo.getQueryParameters() ))
                        .build() ;
     }
 
     @GET
     @Produces("xml/encrypted")
-    public Response getResourceASEnctyptedXml( @HeaderParam("sort") String filterdIndex, @Context UriInfo uriInfo , {SQL_PARAMS} ) {    
+    public Response getResourceASEnctyptedXml( @HeaderParam("keep") String filterdIndex, @Context UriInfo uriInfo , {SQL_PARAMS} ) {    
 
         /**
         * DefaultStreamerConfigurator defaultStreamerConfigurator = new
@@ -88,13 +94,16 @@ public class {SERVICE_NAME}      {
         System.out.println(" G-JAX - Process : getResourceASEnctyptedXml ... ") ; 
         
         return Response.status(Response.Status.OK)
-                       .entity(streamerOutputXmlEncrypted.wrapResource({RESOURCE_NAME}, {DTO_CLASS} , filterdIndex, uriInfo.getQueryParameters() ))
+                       .entity(streamerOutputXmlEncrypted.wrapResource( {RESOURCE_NAME}           , 
+                                                                        {DTO_CLASS}               ,
+                                                                        filterdIndex              , 
+                                                                        uriInfo.getQueryParameters() ))
                        .build() ;
     }
 
     @GET
     @Produces("json/plain")
-    public Response getResourceASJson( @HeaderParam("sort") String filterdIndex, @Context UriInfo uriInfo, {SQL_PARAMS} ) {
+    public Response getResourceASJson( @HeaderParam("keep") String filterdIndex, @Context UriInfo uriInfo, {SQL_PARAMS} ) {
           
         /**
         * DefaultStreamerConfigurator defaultStreamerConfigurator = new
@@ -108,13 +117,16 @@ public class {SERVICE_NAME}      {
         System.out.println(" G-JAX - Process : getResourceASJson ... ") ; 
 
         return Response.status(Response.Status.OK)
-                       .entity(streamerOutputJson.wrapResource({RESOURCE_NAME}, {DTO_CLASS} , filterdIndex, uriInfo.getQueryParameters() ))
+                       .entity(streamerOutputJson.wrapResource( {RESOURCE_NAME}           , 
+                                                                {DTO_CLASS}               ,
+                                                                filterdIndex              , 
+                                                                uriInfo.getQueryParameters() ))
                        .build() ;
     }
     
     @GET
     @Produces("json/encrypted")
-    public Response getResourceASEncryptedJson( @HeaderParam("sort") String filterdIndex, @Context UriInfo uriInfo, {SQL_PARAMS}) {
+    public Response getResourceASEncryptedJson( @HeaderParam("keep") String filterdIndex, @Context UriInfo uriInfo, {SQL_PARAMS}) {
 
         /**
         * DefaultStreamerConfigurator defaultStreamerConfigurator = new
@@ -128,7 +140,10 @@ public class {SERVICE_NAME}      {
         System.out.println(" G-JAX - Process : getResourceASEncryptedJson ... ") ; 
 
         return Response.status(Response.Status.OK)
-                       .entity( streamerOutputJsonEncrypted.wrapResource({RESOURCE_NAME}, {DTO_CLASS} , filterdIndex, uriInfo.getQueryParameters() ))
+                       .entity( streamerOutputJsonEncrypted.wrapResource( {RESOURCE_NAME}           , 
+                                                                          {DTO_CLASS}               ,
+                                                                          filterdIndex              , 
+                                                                          uriInfo.getQueryParameters() ))
                        .build() ;
     }
 

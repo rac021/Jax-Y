@@ -25,9 +25,9 @@ import org.wildfly.swarm.datasources.DatasourcesFraction ;
 import org.wildfly.swarm.config.undertow.ServletContainer ;
 import org.wildfly.swarm.config.undertow.server.HttpsListener ;
 import org.wildfly.swarm.config.undertow.HandlerConfiguration ;
-import com.rac021.jax.security.provider.configuration.Configurator ;
 import org.wildfly.swarm.config.undertow.servlet_container.JSPSetting ;
 import org.wildfly.swarm.management.console.ManagementConsoleFraction ;
+import com.rac021.jax.security.provider.configuration.YamlConfigurator ;
 import org.wildfly.swarm.config.management.security_realm.SslServerIdentity ;
 import org.wildfly.swarm.config.undertow.servlet_container.WebsocketsSetting ;
 
@@ -38,28 +38,72 @@ public class Main {
     
       
     public static void main(String[] args) throws Exception {
-             
+    
+       /**
+       * Debugger Mode */
        // System.setProperty("swarm.debug.port" ,"11555") ;
+       
+       /* HTTP PORT CONFIGURATION     */
+       String HTTP_PORT  = "8080"      ;
+       String HTTPS_PORT = "8443"      ;
+       String IP         = "localhost" ;
+       String TRANSPORT  = "http"      ;
+       
+       /* SSL CONFIGURATION             */
+       String KEY_STORE_PATH     =  null ;
+       String KEY_STORE_PASSWORD =  null ;
+       String KEY_PASSWORD       =  null ;
+       String ALIAS              =  null ;
+       
+       final int managementPort  =  9990 ; 
+               
+       final String ADMIN_CONSLE = "/console" ;
 
-        String tmpDirProperty = "java.io.tmpdir"                     ;
- 
-        String tmpDir         = System.getProperty( tmpDirProperty ) ;
- 
-        System.out.println( "\n ** VFS = " + tmpDir )                ;
+       String tmpDirProperty = "java.io.tmpdir"                     ;
+       String tmpDir         = System.getProperty( tmpDirProperty ) ;
+      
+       YamlConfigurator cfg = new YamlConfigurator() ;
+       
+       HTTP_PORT  = cfg.getHttpPort()  ;
+       HTTPS_PORT = cfg.getHttpsPort() ;
+       IP         = cfg.getIp()        ;
+       
+       if ( cfg.getTransport().equalsIgnoreCase("https")) {
+           TRANSPORT = "https"                            ;
+           System.setProperty("transport", "https")       ;
+       }
 
-        System.setProperty("java.net.preferIPv4Stack" , "true")      ;
+       if ( cfg.getSelfSsl() == true )            {
+           System.setProperty("selfSsl", "true")  ;
+       } else {
+           System.setProperty("selfSsl", "false") ;
+       }
+       
+       if ( TRANSPORT.equalsIgnoreCase("https") && cfg.getSelfSsl() == false  ) {
+             ALIAS              = cfg.getAlias()           ;
+             KEY_PASSWORD       = cfg.getKeyPassword()     ;
+             KEY_STORE_PATH     = cfg.getKeyStorePath()    ;
+             KEY_STORE_PASSWORD = cfg.getKeytorePassword() ;
+       }
+ 
+       System.out.println( "\n ** Virtual File System ( VFS ) = " + tmpDir + "\n" ) ;
+
+       System.setProperty("java.net.preferIPv4Stack" , "true")                      ;
         
-        if( System.getProperty("serviceConf") == null ) {
+       if( System.getProperty("serviceConf") == null )  {
             
-            File conf = new File("serviceConf.yaml") ;
+            File conf = new File("serviceConf.yaml")    ;
+            
             if( ! conf.exists() ) {
-                System.out.println(" **** Error " )                                                                              ;
-                System.out.println(" - No Service Configuration Provided ! " )                                                   ;
-                System.out.println(" - Restart Service providing a configuration file using : -DserviceConf=serviceConf.yaml " ) ;
-                System.out.println(" - Where [ serviceConf.yaml ] is the path of the config file " )                             ;
-                System.out.println(" - It's used fot Configuring Database Connection  " )                                        ;
-                System.out.println("    " )                                                                                      ;
-                System.exit(0)   ;
+                
+                System.out.println(" **** Error "                                                  ) ;
+                System.out.println(" - No Service Configuration Provided ! "                       ) ;
+                System.out.println(" - Restart Service providing a configuration  "
+                                   + "file using : -DserviceConf=serviceConf.yaml                " ) ;
+                System.out.println(" - Where [ serviceConf.yaml ] is the path of the config file " ) ;
+                System.out.println(" - It's used fot Configuring Database Connection             " ) ;
+                System.out.println("                                                             " ) ;
+                System.exit(0)                                                                       ;
             }
             else {
                 System.setProperty("serviceConf" , "serviceConf.yaml") ;
@@ -67,94 +111,162 @@ public class Main {
         }
         
         System.out.println( " ** Provided Configuration = " + System.getProperty("serviceConf" ) ) ;
+        System.out.println( "                                                                "   ) ;
         
-        Configurator cfg = new Configurator() ;
         
-        /** Set KeyCloak Properties if SSO is Enable **/
+       /** Set KeyCloak Properties if SSO is Enable **/
         
         if( cfg.getKeycloakFile() != null ) {
-            System.setProperty("swarm.keycloak.json.path" , cfg.getKeycloakFile()) ;
+            System.setProperty("swarm.keycloak.json.path" , cfg.getKeycloakFile())     ;
+            System.out.println( " ** Used KeyCloak File :  " + cfg.getKeycloakFile() ) ;
+            System.out.println( "                                                 "  ) ;
         }
+        
         
         String driverClassName  = ((String) cfg.getConfiguration().get("driverClassName")).replaceAll(" +", " ").trim() ;
         String userName         = ((String) cfg.getConfiguration().get("userName"))       .replaceAll(" +", " ").trim() ;
         String password         = ((String) cfg.getConfiguration().get("password"))       .replaceAll(" +", " ").trim() ;
         String connectionUrl    = ((String) cfg.getConfiguration().get("connectionUrl"))  .replaceAll(" +", " ").trim() ;
-           
+        
+        String admin_login    = ((String) cfg.getConfiguration().get("admin_login"))    !=  null    ?
+                                ((String) cfg.getConfiguration().get("admin_login"))    :   "admin" ;
+        String admin_password = ((String) cfg.getConfiguration().get("admin_password")) !=  null    ? 
+                                ((String) cfg.getConfiguration().get("admin_password")) :  "admin"  ;
+        
+        /* Enable HTTPS 
+        /**
+        ## Ex of Generating a Certificate using JDK 
+        ##   keytool -genkey -v 
+        ##  -keystore my-release-key.keystore 
+        ##  -alias alias_name 
+        ##  -keyalg RSA 
+        ##  -keysize 2048 
+        ##  -validity 10000 
+        ##  -ext SAN=DNS:localhost,IP:127.0.0.1 **/
+        
+        if( System.getProperty("transport") != null && 
+            System.getProperty("transport").equalsIgnoreCase("HTTPS") ) {
+             
+           System.out.print (" ** Transport Mode : HTTPS  " ) ;
+            
+           /*
+            *  Self-signed certificate Generation 
+           */
+            
+           if( System.getProperty("selfSsl" ) == null                    ||
+               System.getProperty("selfSsl" ) != null                    &&
+               System.getProperty("selfSsl" ).equalsIgnoreCase("true")  ) {
+               
+               System.out.println(" --> [ Self-signed certificate Generation .. ] ") ;
+               System.setProperty("swarm.https.certificate.generate", "true"       ) ;
+               System.setProperty("swarm.https.certificate.generate.host", IP      ) ;
+               System.setProperty("swarm.https.port", HTTPS_PORT                   ) ;
+               System.setProperty("swarm.https.only", "true"                       ) ;
+               
+               System.out.println("                                              " ) ;
+           }
+        }
+       
+        else {
+              System.out.println(" ** Transport Mode : HTTP ")   ;
+              System.out.println("               ")              ;
+              System.setProperty("swarm.http.port", HTTP_PORT )  ;
+        }
+        
+        if( System.getProperty("selfSsl" ) != null                    &&
+            System.getProperty("selfSsl" ).equalsIgnoreCase("false") ) {
+            
+            System.out.println(" --> [ Use Custom SSL Configuration .. ] " ) ;
+            System.out.println("                                         " ) ;
+        }
+         
         Swarm  swarm            = new Swarm() ;
       
         swarm.fraction( getDataSource ( driverClassName, connectionUrl, userName, password) ) ;
 
+        String _TRANSPORT = TRANSPORT ;
+        String _IP        = IP        ;
+        String _PORT      = TRANSPORT.equalsIgnoreCase("https") ? HTTPS_PORT : HTTP_PORT ;
+        
         ManagementFraction securityRealm = ManagementFraction.createDefaultFraction()
-                                                             .httpInterfaceManagementInterface((iface) -> {
-                                               iface.allowedOrigin("http://localhost:8080") ;
+                                          .httpsPort( Integer.parseInt(_PORT) )
+                                          .httpInterfaceManagementInterface((iface) -> {
+                                               iface.allowedOrigin( _TRANSPORT + "://" + _IP + ":" + _PORT ) ;
                                                iface.securityRealm("ManagementRealm")       ;
                                            }).securityRealm("ManagementRealm" , (realm) ->  {
                                                     realm.inMemoryAuthentication (
                                                         (authn) -> {
-                                                           authn.add("rya", "rac021", true) ;
+                                                           authn.add(admin_login, admin_password, true) ;
                                                     }) ;
                                                     realm.inMemoryAuthorization(
                                                         (authz) -> {
-                                                            authz.add("rya", "admin") ;
+                                                            authz.add(admin_login, admin_password )     ;
                                                     }) ;
                                               }) ;
-
+        
         /*
-          Enable HTTPS 
-          Ex of Generating a Certificat using JDK : 
-         -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000 
-        */
+        Enable HTTPS
+        Ex of Generating a Certificat using JDK :
+        -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+         */
         
         if( System.getProperty("transport") != null && 
             System.getProperty("transport").equalsIgnoreCase("HTTPS")) {
-             
-            System.out.println(" **** Enable HTTP **** " ) ;
-             
-            securityRealm.securityRealm ( new SecurityRealm("SSLRealm")
-                         .sslServerIdentity ( new SslServerIdentity<>()
-                            .keystorePath("/opt/jdk/jdk1.8.0_111/jre/bin/my-release-key.keystore")
-                            .keystorePassword("yahiaoui021")
-                            .alias("alias_name")
-                            .keyPassword("yahiaoui021")
-                         )
-            ) ;
            
-            swarm.fraction(new UndertowFraction()
-                 .server(new Server("default-server")
-                 .httpsListener(new HttpsListener("default")
-                 .securityRealm("SSLRealm")
-                 .socketBinding("https"))
-                 .host(new Host("default-host")))
-                 .bufferCache(new BufferCache("default"))
-                 .servletContainer(new ServletContainer("default")
-                 .websocketsSetting(new WebsocketsSetting())
-                 .jspSetting(new JSPSetting()))
-                 .handlerConfiguration(new HandlerConfiguration())) ; 
+            /*
+             *  Specific SSL Sertificate 
+            */
+            
+            if( System.getProperty("selfSsl" ) != null                    &&
+                System.getProperty("selfSsl" ).equalsIgnoreCase("false") ) {
+             
+                securityRealm.securityRealm ( new SecurityRealm("SSLRealm")
+                             .sslServerIdentity ( new SslServerIdentity<>()
+                                .keystorePath     ( KEY_STORE_PATH )
+                                .keystorePassword ( KEY_STORE_PASSWORD )
+                                .alias            ( ALIAS )
+                                .keyPassword      ( KEY_PASSWORD )
+                             )
+                ) ;
 
-               /*
-               swarm.fraction(UndertowFraction.createDefaultFraction()
-                    .server("ssl-server", server -> server.httpsListener( new HttpsListener("https")
-                      .securityRealm("SSLRealm")
-                      .socketBinding("https")
-                    ))
-               ) ;
-               */
+                swarm.fraction(new UndertowFraction()
+                     .server(new Server("default-server")
+                     .httpsListener(new HttpsListener("default")
+                     .securityRealm("SSLRealm")
+                     .socketBinding("https"))
+                     .host(new Host("default-host")))
+                     .bufferCache(new BufferCache("default"))
+                     .servletContainer(new ServletContainer("default")
+                     .websocketsSetting(new WebsocketsSetting())
+                     .jspSetting(new JSPSetting()))
+                     .handlerConfiguration(new HandlerConfiguration())) ; 
+
+                     /**
+                     swarm.fraction(UndertowFraction.createDefaultFraction()
+                          .server("ssl-server", server 
+                             -> server.httpsListener( new HttpsListener("https")
+                            .securityRealm("SSLRealm")
+                            .socketBinding("https")
+                          ))
+                     ) ;
+                     **/
+            }
         }
-
-        swarm.fraction( securityRealm ) ;
-        swarm.fraction(new ManagementConsoleFraction().contextRoot("/console")) ;
         
-        swarm.start() ;
+        swarm.fraction( securityRealm )                                              ;
+        swarm.fraction(new ManagementConsoleFraction().contextRoot(ADMIN_CONSLE))    ;
+        
+        swarm.start()                                                                ;
 
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "jax-y.war") ;
 
         
-       if( cfg.getAuthenticationType().equalsIgnoreCase("SSO"))  {
+       if( cfg.getAuthenticationType().equalsIgnoreCase("SSO"))    {
            
-           Map  authentication = cfg.getAuthenticationInfos()    ;
+           Map  authentication = cfg.getAuthenticationInfos()      ;
            
-            ((Map) authentication.get("secured")).forEach( ( _sName, _methods )  -> {
+            ((Map) authentication.get("secured"))
+                                 .forEach( ( _sName, _methods ) -> {
                 
                ((Map) _methods).forEach( ( _method, _roles ) -> {
                      
@@ -218,6 +330,42 @@ public class Main {
        deployment.addAllDependencies(true) ;
        swarm.deploy( deployment)           ;
 
+       
+        System.out.println("                                   ") ;
+        System.out.println(" ************************************"
+                                + "*************************** ") ;
+        System.out.println("                                   ") ;
+        System.out.println(" Server started at : " + _TRANSPORT 
+                                                   +  "://" 
+                                                   + _IP
+                                                   + ":" 
+                                                   + _PORT ) ;
+        System.out.println("                                   ") ;
+        
+        System.out.println("  -- Admin Console         : " +  _TRANSPORT  
+                                                           + "://"
+                                                           +  _IP          
+                                                           + ":" 
+                                                           + _PORT         
+                                                           + ADMIN_CONSLE  ) ;
+
+        System.out.println("  -- Management Interface  : http://"
+                                                        +  _IP  
+                                                        + ":" 
+                                                        + managementPort ) ;
+
+        System.out.println("                        ") ;
+        
+        System.out.println(" Service Discovery : " +  _TRANSPORT + "://"
+                                                   +  _IP        + ":" 
+                                                   + _PORT       + 
+                                                   "/rest/resources/infoServices" ) ;
+        
+        System.out.println("                       ")             ;
+        System.out.println(" ************************************"
+                                + "*************************** ") ;
+        System.out.println("                       ")             ;
+    
     }
     
     private static DatasourcesFraction getDataSource( String driverClassName ,
@@ -253,8 +401,8 @@ public class Main {
          
        return new DatasourcesFraction().jdbcDriver("com.mysql", (d) -> {
                     d.driverClassName(driverClassName);
-                    d.xaDatasourceClass("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
-                    d.driverModuleName("com.mysql");
+                    d.xaDatasourceClass("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource") ;
+                    d.driverModuleName("com.mysql") ;
                 })
                 .dataSource("MyPU", (ds) -> {
                     ds.driverName("com.mysql")                      ;

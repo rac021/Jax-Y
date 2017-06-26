@@ -1,25 +1,53 @@
 
 package com.rac021.jaxy.override.configuration ;
 
-import com.rac021.jax.api.streamers.IStreamerConfigurator ;
-import com.rac021.jax.api.streamers.DefaultStreamerConfigurator ;
+import javax.ejb.Startup ;
+import javax.ejb.DependsOn ;
+import javax.ejb.Singleton ;
+import javax.inject.Inject ;
+import javax.annotation.PostConstruct ;
+import com.rac021.jax.security.provider.configuration.YamlConfigurator ;
 
 /**
  *
  * @author ryahiaoui
  */
 
-public class Configuration extends DefaultStreamerConfigurator implements IStreamerConfigurator {
+@Startup
+@Singleton
+@DependsOn("DefaultStreamerConfigurator")
 
-    public Configuration()              {
+public class Configuration  {
+   
+    @Inject
+    YamlConfigurator configurator ;
 
-        super()                         ;
+    @PostConstruct
+    public void initAndOverrideConfiguration() {
 
-        super.setRatio(1)               ;
-        super.setNbrCores(2 )           ;
-        super.setRecorderLenght( 5000 ) ;
+        /* Result Select = Ratio * selectSize */
+        // ratio =  configurator.getRatio()    ;      
+         
+        /* MaxThreads per Request. Changing this value 
+           will Override MaxThreads for all Serivces */
+        // maxThreads =  4   ; 
+        
+        /* ResponseCacheSize : Total Data in Memory before flush - 
+           Response Size */
+        // responseCacheSize = configurator.getResponseCacheSize() ;
+        
+        /* Size of the Queue */
+        // selectSize =  configurator.getSelectSize()  ;
+      
+        /* Thread Pool Size -> Application Scope      */
+        // threadPoolSize = 17        ;
+        
+        /* Total Concurrent Users Treated in parallel */
+        // maxConcurrentUsers =    1 ;
+       
+        /* Applying Modifications ...  ( Mandatory )  */
+        // initPoolProducer()             ; 
+        // initSemaphoreConcurrentUsers() ;
         
     }
- 
 }
-

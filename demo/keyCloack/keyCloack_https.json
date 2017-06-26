@@ -1,0 +1,12 @@
+{
+  "realm": "serenity",
+  "auth-server-url": "https://localhost:8545/auth",
+  "ssl-required": "all",
+  "resource": "app-plane",
+  "credentials": {
+    "secret": "6b64f7fa-a6ec-4f53-b941-2bdc74ef2640"
+  },
+  "use-resource-role-mappings": true ,
+  "disable-trust-manager": true, 
+  "allow-any-hostname": true
+}

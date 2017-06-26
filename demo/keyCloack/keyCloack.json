@@ -1,11 +1,10 @@
 {
   "realm": "serenity",
-  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAm8a4MMKtlAfia+D7tidnN+ee+5l0xkDdzKtMayw02sxifKTahBqYmxwnG6VLqpQSsOO3gB4XxQ9b6YmbP6oJxQ+OfHwzvLNZ3T1bm7wYKphfW23P2XYMQa24FlFXoZIObD3nFsTo0BwqrDjIITz0smXVUaMDmaRmDSAxTfeiFX8di/Mws1UzvOYvfjkmEtIWdZElW44kgRa0DH6QdjycQFf/fIzsg/4AThFA+VyMPamlDRWQ6/DeOjrYhm1Suot4Vd8nAuQSsEiUipEvXVQIoH4nRRk/HE1Y4TOH4f8rkjKFeomAEly/FAQOF8ACn6d2YZC0cdNsuJ7BCNRlEhKPkQIDAQAB",
-  "auth-server-url": "http://127.0.0.1:8180/auth",
-  "ssl-required": "external",
+  "auth-server-url": "http://localhost:8180/auth",
+  "ssl-required": "none",
   "resource": "app-plane",
   "credentials": {
-    "secret": "eb9b5dcc-d63e-434f-a429-29b1653ecb8e"
+    "secret": "6b64f7fa-a6ec-4f53-b941-2bdc74ef2640"
   },
   "use-resource-role-mappings": true
 }

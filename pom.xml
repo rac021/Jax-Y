@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.rac021</groupId>
     <artifactId>Jax-Y</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>war</packaging>
     
     <properties>
@@ -14,7 +14,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <packaging.type>war</packaging.type>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <version.wildfly.swarm>2017.3.2</version.wildfly.swarm>
+        <version.wildfly.swarm>2017.6.0</version.wildfly.swarm>
+        <!--<version.wildfly.swarm>2017.3.2</version.wildfly.swarm>-->
     </properties>
     
     <dependencyManagement>
@@ -92,14 +93,14 @@
         <dependency>
             <groupId>com.github.rac021</groupId>
             <artifactId>G-Jax-Security-Provider</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
         
         <!-- G-Jax-Service-Discovery Dependency -->         
         <dependency>
             <groupId>com.github.rac021</groupId>
             <artifactId>G-Jax-Service-Discovery</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
         
         <!-- WildFly Swarm Dependencies -->                  
@@ -107,11 +108,11 @@
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>microprofile</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>jpa-eclipselink</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>management</artifactId>
         </dependency>
@@ -132,10 +133,16 @@
             <artifactId>ejb</artifactId>
         </dependency>        
         <dependency>
-           <groupId>org.wildfly.swarm</groupId>
-           <artifactId>keycloak</artifactId>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>keycloak</artifactId>
         </dependency>
-
+        
+        <!--
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>io</artifactId>
+        </dependency>
+        -->
         <!-- Postgresql JDBC Driver-->
         <dependency>
             <groupId>org.postgresql</groupId>
