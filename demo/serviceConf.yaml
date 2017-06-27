@@ -60,7 +60,7 @@ authentication : # using HTTP
     tableName          : users
     loginColumnName    : login
     passwordColumnName : password -> MD5  # Default Storage : PLAIN
-  paramToSign : #  Ex : Signature = SHA2 ( login + MD5 ( password ) + timeStamp )
+  paramToSign :  #  Ex : Signature = SHA2 ( login + MD5 ( password ) + timeStamp )
     login     : PLAIN 
     password  : MD5   # password hashed using MD5 Algo in the signature of the request 
     timeStamp : PLAIN
@@ -144,5 +144,5 @@ SelectSize         : 5000
 admin_login    : admin
 admin_password : admin
 
-#############################################
-#############################################
+##################################################
+##################################################

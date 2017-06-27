@@ -1,138 +1,182 @@
-# JAX-Y-Demo <img src="https://cloud.githubusercontent.com/assets/7684497/25315596/e191fb00-2857-11e7-99bf-8e233b4eb795.jpg" width="50">
 
+### Jax-Y 1.1 <img src="https://cloud.githubusercontent.com/assets/7684497/25315596/e191fb00-2857-11e7-99bf-8e233b4eb795.jpg" width="30">
+### Github Project : [https://github.com/rac021/Jax-Y](https://github.com/rac021/Jax-Y)
+**Package Download** :  [https://sourceforge.net/projects/jax-y](https://sourceforge.net/projects/jax-y)
 
- **Source Download** :  https://sourceforge.net/projects/jax-y/?source=typ_redirect
- 
- 
+------------------------------------------------------
+
  **Demo :** 
  
+ 
+ I )   Install demo Database :
+ 
+         1 )  chmod +x db-script/db-planes.sh 
+ 
+         2 )  ./db-script/db-planes.sh 
+       
+       
+ II )  Run The executable Jar which deploy endpoint at http://localhost:8080/rest/resources
   
- I )   Download : 
-    
-       1 ) download jax-y-demo.zip from the link above
-   
-       2 ) unzip jax-y-demo.zip
-  
- II )  Install demo Database :
+         1 )  cd server
  
-        1 )  chmod +x demo/db-script/db-planes.sh 
- 
-        2 )  ./demo/db-script/db-planes.sh 
-       
-       
- III )  Run The executable Jar which deploy an endpoint at the URL : http://localhost:8080/rest/resources/
- 
-        1 )  java -jar jax-y-swarm.jar
+         2 )  java -jar jax-y-swarm.jar
        
  
- IV ) Run the GUI Client :
+ III ) Wildfly swarm Server Administration 
+ 
+         1 ) http://localhost:8080/console/
+         
+         2 ) Test jax-y deployment
+         
+ 
+ IV  ) Run the GUI Client :
         
-        1 )  java -jar GUI/jaxy-ui.jar
+         1 )  java -jar GUI/jaxy-ui.jar
        
         
- V ) Tests ( Public serivce ) :
+ V  ) Tests ( Public serivce ) :
  
-        1 ) Invoke the serviceDiscovery : 
-            http://localhost:8080/rest/resources/infoServices
+         1 ) invoke the serviceDiscovery     
+             http://localhost:8080/rest/resources/infoServices
          
-        2 ) Invoke the service planes : 
-            http://localhost:8080/rest/resources/planes ( XML / JSON )
+         2 ) invoke infoServices with XML/Encrypted - JSON/Encrypted
+         
+         3 ) invoke the service planes        
+             http://localhost:8080/rest/resources/planes ( XML / JSON )
 
-        3 ) Filter on total_pssengers > 300  :  total_passengers=_>_300
+         4 ) Filter on total_pssengers > 300  :  total_passengers=_>_300  
          
-        4 ) Sort Only model                  :  model
+         5 ) Keep Only model                  :  model
          
-        5 ) Sort Only model + distance_km    :  model - distance_km
+         6 ) Keep Only model + distance_km    :  model - distance_km
        
 
- VI  ) Add new Secured Service ( customSignOn authentication ) :
+ VI ) Add new Secured Service ( customSignOn authentication ) :
  
-        1 ) Stop the server
+         1 ) Stop the server
          
-        2 ) Uncomment vip_planes service
+         2 ) Uncomment vip_planes service
          
-        3 ) Uncomment customSignOn authentication in the serviceConf.yaml file
+         3 ) Uncomment customSignOn authentication in the serviceConf.yaml file
                   
-        4 ) restart the server 
+         4 ) restart the server 
          
-        5 ) Invoke the serviceDiscovery : 
-            http://localhost:8080/rest/resources/infoServices
+         5 ) invoke the serviceDiscovery    
+             http://localhost:8080/rest/resources/infoServices
          
-        6 ) Invoke the service vip_planes : 
-            http://localhost:8080/rest/resources/vip_planes 
-            ( XML / JSON / XML-ENCRYPTED / JSON-ENCRYPTED )
+         6 ) invoke the service vip_planes  : 
+             http://localhost:8080/rest/resources/vip_planes 
+             ( XML / JSON / XML-ENCRYPTED / JSON-ENCRYPTED )
          
-        7 ) Test authentication by changing login / password / timeStamp
-            Test timeOut // test SQL type inference capacity
+         7 ) Test authentication by changing login - password - timeStamp. Test timeOut 
+          
+         8 ) Test SQL type inference capacity
 
-        8 ) Decrypt data locally 
+         9 ) Decrypt data locally 
          
-        9 ) Filter on total_pssengers > 300   
-                      total_passengers=_>_300 
-                      total_passengers=_>_300&model='Airbus A340-500'
-                      total_passengers=_>_300&model=_not_'Airbus A340-500'
+        10 ) Filter on total_passengers=_>_300  
+                       total_passengers=_>_300&model='Airbus A340-500'
+                       total_passengers=_>_300&model=_not_'Airbus A340-500'
          
-       10 ) Sort Only model                  :  model
+        10 ) Keep Only model                  :  model
          
-       11 ) Sort Only model + distance_km    :  model - distance_km
-       
-       12 ) Change Tags using "AS" in SQL Queries
+        11 ) Keep Only model + distance_km    :  model - distance_km
          
+        12 ) Change Tags using "AS" in SQL Queries
+        
+        13 ) Test CBC Cipher ( Explain IV )
 
- VII ) Test SSO authentication with KeyCloack ( should works with HTTPS ) :
+        
+ VII ) Test SSO authentication with KeyCloak ( should works with HTTPS ) :
 
-        1 ) Start KeyCloack SERVER ( 127.0.0.1:8180 )
+         1 ) Start KeyCloak SERVER ( 127.0.0.1:8180 )
  
-        2 ) Stop the jaxy server
+         2 ) Stop the jaxy server
          
-        3 ) Comment customSignOn authentication in the serviceConf.yaml file
+         3 ) Comment customSignOn authentication in the serviceConf.yaml file
         
-        4 ) Uncomment SSO authentication in the serviceConf.yaml file
+         4 ) Uncomment SSO authentication in the serviceConf.yaml file
         
-        5 ) restart the server 
+         5 ) restart the server 
          
-        6 ) Go to the SSO panel 
+         6 ) Go to the SSO panel 
          
-        7 ) Invoke the serviceDiscovery : 
-            http://localhost:8080/rest/resources/infoServices
+         7 ) invoke the serviceDiscovery 
+             http://localhost:8080/rest/resources/infoServices
+             
+         -
          
-        8 ) Invoke the service vip_planes : 
-            http://localhost:8080/rest/resources/vip_planes 
-            ( XML / JSON / XML-ENCRYPTED / JSON-ENCRYPTED )
+         8 ) invoke the service vip_planes
+             http://localhost:8080/rest/resources/vip_planes 
+             ( XML - JSON - XML/Encrypted - JSON/Encrypted )
          
-        9 ) Test authentication by changing login / password / clientID / secretID
+         9 ) Test authentication by changing login - password - clientID - secretID
          
-       10 ) Filter on total_pssengers > 300  :  total_passengers=_>_300
+        10 ) Filter On                        : total_passengers=_>_300
          
-       11 ) Sort Only model                  :  model
+        11 ) Keep Only model                  :  model
          
-       12 ) Sort Only model + distance_km    :  model - distance_km
+        12 ) Keep Only model + distance_km    :  model - distance_km
+        
+        13 ) Add New User in Keycloak ( name + password + login )
+        
+        14 ) Test acces of the new user to the vip_planes service  
          
-       13 ) Check logs in KeyCloack server for the user admin
+        15 ) Check logs in KeyCloak server for the user admin
+
+        
+ VIII ) Test Https 
+ 
+         1 ) For customSignOn authentication
+             
+             - Enable HTTPS in serviceConf.yaml 
+             
+             - Set Self Signed Certificate vs Existing one 
+             
+             - Restart Server 
+             
+             - Go to : http://localhost:8443/rest/resources/infoServices
+             
+             - Tests 
+         
+         2 ) For SSO
+          
+             - Restart Keyloak using https mode ( Default port : 8545 )
+             
+             - Uncomment Keycloak_https.json int the serviceConf.yaml 
+             
+             - Restart Jax-Y server ( Default https port : 8443 )
+             
+             - Go to : http://localhost:8443/rest/resources/infoServices
+             
+             - Test Connections + Authentication for different users 
          
    
- VIII ) Generate Shell-script for automation 
+ IX  ) Generate Shell-script for automation 
  
-        1 ) Generate script 
+         1 ) Generate script 
          
-        2 ) test Script 
+         2 ) test Script 
        
        
- **Upcoming Features :**
+ Upcoming Features :
  
-       * Global Configuration Supports ( Thread pool size, nb of threads by service, data queue size ... 
-         authentication server, HTTPS ...  )
-  
-       * Swagger-Angular-Client intergration 
-                            
-       * GUI Client Https supports  
+        * Swagger-Angular-Client intergration 
        
-       * Runtime Algo Choice for Encryption ( AES - DES ... )
+        * Runtime Algo Choice for Encryption ( AES - DES ... ) ( Done ! )
 
-       * Randomize IV ( Initialization Vector ) for AES ..
-  
-       * Add support of NoSQL databases ??
-       
-       * Tests Tests & Tests
-       
-       
+        * Global Configuration Supports ( Thread pool size, nb of threads by service ,
+          data queue size )
+          
+        * Authentication server using HTTPS  ( Done ! )
+              
+        * GUI Https supports  ( Done ! )
+        
+        * Generate Jar Client for specific Configuration
+        
+        * Add Real Time decryption ( For Stream + Large data )
+        
+        * Let's Encrypt Support 
+        
+    
+
