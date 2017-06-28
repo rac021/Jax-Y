@@ -171,7 +171,7 @@
         * Runtime Algo Choice for Encryption ( AES - DES ... ) ( Done ! )
 
         * Global Configuration Supports ( Thread pool size, nb of threads by service ,
-          data queue size )
+          data queue size ) ( Done ! )
           
         * Authentication server using HTTPS  ( Done ! )
               
