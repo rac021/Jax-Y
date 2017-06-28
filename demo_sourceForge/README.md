@@ -158,7 +158,12 @@
          
          2 ) test Script 
        
-       
+ X  ) Stress test - apache benchmark 
+ 
+         1 ) Generate script for stress test
+         
+         2 ) Run AB
+         
  Upcoming Features :
  
         * Swagger-Angular-Client intergration 
