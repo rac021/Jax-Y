@@ -7,6 +7,7 @@ import javax.ejb.Singleton ;
 import javax.inject.Inject ;
 import javax.annotation.PostConstruct ;
 import com.rac021.jax.security.provider.configuration.YamlConfigurator ;
+// import static com.rac021.jax.api.streamers.DefaultStreamerConfigurator.* ;
 
 /**
  *
@@ -40,14 +41,15 @@ public class Configuration  {
         // selectSize =  configurator.getSelectSize()  ;
       
         /* Thread Pool Size -> Application Scope      */
-        // threadPoolSize = 17        ;
+        // threadPoolSize = 17  ;
+        /* Applying Modifications ...  ( Mandatory )  */
+        // initPoolProducer()   ; 
         
         /* Total Concurrent Users Treated in parallel */
-        // maxConcurrentUsers =    1 ;
-       
+        // maxConcurrentUsers =    1      ;
         /* Applying Modifications ...  ( Mandatory )  */
-        // initPoolProducer()             ; 
         // initSemaphoreConcurrentUsers() ;
+       
         
     }
 }

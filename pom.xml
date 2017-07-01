@@ -7,6 +7,8 @@
     <artifactId>Jax-Y</artifactId>
     <version>1.1</version>
     <packaging>war</packaging>
+    <description>Jax-Y</description>
+    <url>https://github.com/rac021/Jax-Y</url>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,7 +17,6 @@
         <packaging.type>war</packaging.type>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <version.wildfly.swarm>2017.6.0</version.wildfly.swarm>
-        <!--<version.wildfly.swarm>2017.3.2</version.wildfly.swarm>-->
     </properties>
     
     <dependencyManagement>
@@ -43,7 +44,7 @@
                 <configuration>
                     <mainClass>entry.Main</mainClass>
                     <properties>
-                        <swarm.bind.address>127.0.0.1</swarm.bind.address>
+                        <swarm.bind.address>0.0.0.0</swarm.bind.address>
                         <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
                     </properties>
                 </configuration>

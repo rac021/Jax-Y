@@ -303,15 +303,32 @@ public class GhostServicesManager {
           System.out.println("                                   " ) ;
       }
       
-          System.out.println("                                   " ) ;
-          System.out.println(" Applying Max Concurrent Users *** " ) ;
+      System.out.println("                                   " ) ;
+      System.out.println(" Applying Global Configuration *** " ) ;
           
-          if( DefaultStreamerConfigurator.maxConcurrentUsers == Integer.MAX_VALUE ) {
-              DefaultStreamerConfigurator.maxConcurrentUsers =  yamlConfigurator.getMaxConcurrentUsers() ;
-          }
-          System.out.println(" maxConcurrentUsers :  " + DefaultStreamerConfigurator.maxConcurrentUsers ) ;
+      if( DefaultStreamerConfigurator.maxConcurrentUsers != yamlConfigurator.getMaxConcurrentUsers() )  {
+          DefaultStreamerConfigurator.maxConcurrentUsers =  yamlConfigurator.getMaxConcurrentUsers()    ;
+          DefaultStreamerConfigurator.initSemaphoreConcurrentUsers()                                    ;
+      }
           
-          System.out.println("                                   " ) ;
+      if( DefaultStreamerConfigurator.responseCacheSize != yamlConfigurator.getResponseCacheSize() )    {
+          DefaultStreamerConfigurator.responseCacheSize =  yamlConfigurator.getResponseCacheSize()      ;
+      }
+          
+      if( DefaultStreamerConfigurator.selectSize != yamlConfigurator.getSelectSize() )                  {
+          DefaultStreamerConfigurator.selectSize =  yamlConfigurator.getSelectSize()                    ;
+      }
+      
+      if( DefaultStreamerConfigurator.ratio !=  yamlConfigurator.getRatio() )                           {
+          DefaultStreamerConfigurator.ratio  =  yamlConfigurator.getRatio()                             ;
+      }
+          
+      System.out.println(" maxConcurrentUsers :  " + DefaultStreamerConfigurator.maxConcurrentUsers )   ;
+      System.out.println(" responseCacheSize  :  " + DefaultStreamerConfigurator.responseCacheSize  )   ;
+      System.out.println(" selectSize         :  " + DefaultStreamerConfigurator.selectSize         )   ;
+      System.out.println(" ratio              :  " + DefaultStreamerConfigurator.ratio              )   ;
+      System.out.println( "                                                                       " )   ;
+    
     }
     
     
