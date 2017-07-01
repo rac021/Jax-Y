@@ -70,7 +70,7 @@ authentication : # using HTTP
   
 #authentication  :
 #  type          : SSO 
-#  keycloakFile  : keyCloack/keyCloack.json ## keyCloack/keyCloack_https.json -> Path of the keyCloack file
+#  keycloakFile  : keyCloak/keyCloak.json ## keyCloak/keyCloak_https.json -> Path of the keyCloak file
 #  secured       :
 #    vip_planes  : 
 #      GET   : [ admin ]

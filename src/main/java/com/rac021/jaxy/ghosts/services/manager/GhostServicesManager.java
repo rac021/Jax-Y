@@ -280,13 +280,14 @@ public class GhostServicesManager {
     public void init() {
         
       List ghostsServices = (List) yamlConfigurator.getConfiguration().get("Services") ;
+      
       if( ghostsServices != null && ! ghostsServices.isEmpty() ) {
           System.out.println("                                   " ) ;
           System.out.println(" ********************************* " ) ;
           System.out.println(" --> Compiling Ghosts Services     " ) ;
           System.out.println(" ********************************* " ) ;
          
-          ghostsServices.forEach( svice -> { 
+          ghostsServices.forEach( svice ->      { 
               System.out.println("          " ) ;
               processGhostService((Map) svice ) ;
               System.out.println("          " ) ;
@@ -305,6 +306,7 @@ public class GhostServicesManager {
       
       System.out.println("                                   " ) ;
       System.out.println(" Applying Global Configuration *** " ) ;
+      System.out.println("                                   " ) ;
           
       if( DefaultStreamerConfigurator.maxConcurrentUsers != yamlConfigurator.getMaxConcurrentUsers() )  {
           DefaultStreamerConfigurator.maxConcurrentUsers =  yamlConfigurator.getMaxConcurrentUsers()    ;
@@ -323,11 +325,12 @@ public class GhostServicesManager {
           DefaultStreamerConfigurator.ratio  =  yamlConfigurator.getRatio()                             ;
       }
           
-      System.out.println(" maxConcurrentUsers :  " + DefaultStreamerConfigurator.maxConcurrentUsers )   ;
-      System.out.println(" responseCacheSize  :  " + DefaultStreamerConfigurator.responseCacheSize  )   ;
-      System.out.println(" selectSize         :  " + DefaultStreamerConfigurator.selectSize         )   ;
-      System.out.println(" ratio              :  " + DefaultStreamerConfigurator.ratio              )   ;
-      System.out.println( "                                                                       " )   ;
+      System.out.println(" -> maxConcurrentUsers :  " + DefaultStreamerConfigurator.maxConcurrentUsers ) ;
+      System.out.println(" -> responseCacheSize  :  " + DefaultStreamerConfigurator.responseCacheSize  ) ;
+      System.out.println(" -> threadPoolSize     :  " + DefaultStreamerConfigurator.threadPoolSize     ) ;
+      System.out.println(" -> selectSize         :  " + DefaultStreamerConfigurator.selectSize         ) ;
+      System.out.println(" -> ratio              :  " + DefaultStreamerConfigurator.ratio              ) ;
+      System.out.println( "                                                                         "  ) ;
     
     }
     
