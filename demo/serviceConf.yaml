@@ -31,13 +31,12 @@ Services :
  - planes :
     Query : > 
            SELECT model , total_passengers , distance_km  FROM aircraft
-    MaxThreads : 4
+    MaxThreads : 2
  - vip_planes :
     Query : > 
            SELECT * FROM aircraft
-    MaxThreads : 4
+    MaxThreads : 2
   
-
 ############################################################################
 ###### Optional Settings ###################################################
 ############################################################################
@@ -51,22 +50,18 @@ authentication : # using HTTP
   type : customSignOn   
   secured       :
     vip_planes  : 
-      Accept      : [ Xml/Plain, Xml/Encrypted , Json/Plain , Json/Encrypted ]
-      Ciphers     : [ AES_128_CBC , AES_128_ECB ,AES_256_CBC , AES_256_ECB ]
-    vip_planes_1  : 
-      Accept      : [ Xml/Plain, Json/Plain, Xml/Encrypted, Json/Encrypted ]
-      Ciphers     : [ AES_128_CBC , AES_128_ECB ,AES_256_CBC , AES_256_ECB ]      
-  credentials :  # used table for authentication 
+      Accept    : [ Xml/Plain, Xml/Encrypted , Json/Plain , Json/Encrypted ]
+      Ciphers   : [ AES_128_CBC , AES_128_ECB , AES_256_CBC , AES_256_ECB ]
+  credentials   :  # used table for authentication 
     tableName          : users
     loginColumnName    : login
     passwordColumnName : password -> MD5  # Default Storage : PLAIN
-  paramToSign :  #  Ex : Signature = SHA2 ( login + MD5 ( password ) + timeStamp )
+  paramToSign : #   Ex : Signature = SHA2 ( login + MD5 ( password ) + timeStamp )
     login     : PLAIN 
-    password  : MD5   # password hashed using MD5 Algo in the signature of the request 
+    password  : MD5   # password hashed with MD5 in the signature of the request. Equal to the Hash used in passwordColumn
     timeStamp : PLAIN
   algoSign    : SHA2
-  validRequestTimeout :  30 # Request Validity in secondes ( Default : 30 )
-
+  validRequestTimeout : 5 # Request Validity in secondes ( Default : 30 )
   
 #authentication  :
 #  type          : SSO 
@@ -80,7 +75,6 @@ authentication : # using HTTP
 ############################################
 ##### Technical Settings ###################
 ############################################
-
 
 #################################
 #################################
@@ -119,10 +113,10 @@ ALIAS              :  alias_name
 #################################
 
 # Numbers concurent users
-MaxConcurrentUsers : 12
+MaxConcurrentUsers : 2
 
 # ThreadPoolSize - Application Scope
-ThreadPoolSize     : 24
+ThreadPoolSize     : 16
 
 # Extraction DataBase Size = Ratio * RecorderLenght
 Ratio              : 1 
@@ -146,3 +140,4 @@ admin_password : admin
 
 ##################################################
 ##################################################
+
