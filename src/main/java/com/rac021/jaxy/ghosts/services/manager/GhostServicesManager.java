@@ -325,6 +325,10 @@ public class GhostServicesManager {
           DefaultStreamerConfigurator.ratio  =  yamlConfigurator.getRatio()                             ;
       }
           
+      if( DefaultStreamerConfigurator.threadPoolSize !=  yamlConfigurator.getThreadPoolSize() )         {
+          DefaultStreamerConfigurator.threadPoolSize  =  yamlConfigurator.getThreadPoolSize()           ;
+      }
+          
       System.out.println(" -> maxConcurrentUsers :  " + DefaultStreamerConfigurator.maxConcurrentUsers ) ;
       System.out.println(" -> responseCacheSize  :  " + DefaultStreamerConfigurator.responseCacheSize  ) ;
       System.out.println(" -> threadPoolSize     :  " + DefaultStreamerConfigurator.threadPoolSize     ) ;
