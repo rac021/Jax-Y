@@ -19,7 +19,8 @@
   
          1 )  cd server
  
-         2 )  java -jar jax-y-swarm.jar
+         2 )  java -jar jax-y-swarm.jar  // OR //
+              java -Dswarm.bind.address=0.0.0.0 -jar jax-y-swarm.jar
        
  
  III ) Wildfly swarm Server Administration 
