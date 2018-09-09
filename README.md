@@ -56,3 +56,10 @@
   java -jar jax-y-swarm.jar
   
 ```  
+
+
+  [Talk_2017_PasSageEnSeine]( https://github.com/rac021/Jax-Y/blob/master/demo_sourceForge/Talk_PasSageEnSeine/Jax-Y.pdf
+) ( PDF ) 
+
+
+
