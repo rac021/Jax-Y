@@ -16,13 +16,17 @@
 
 **Linked Projects :** 
 
--    [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Api]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Api) ( Api )
+- **Api :**
+   * [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Api]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Api)
 
--    [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Service-Discovery]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Service-Discovery) ( Default Service Discovery Implementation )
+- **Default Service Discovery Implementation :**
+   * [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Service-Discovery]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Service-Discovery) 
 
--    [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Security-Provider]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Security-Provider) ( Default Security Provider Implementation )
+- **Default Security Provider Implementation :**
+   * [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Security-Provider]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Security-Provider) 
    
--    [https://github.com/rac021/G-Jax-Client]( https://github.com/rac021/G-Jax-Client) ( GUI )
+- **GUI :**
+   * [https://github.com/rac021/Jax-Y/tree/master/libs/extensions/G-Jax-Client]( https://github.com/rac021/Jax-Y/tree/master/libs/extensions/G-Jax-Client) 
 
 **Requirements :**
 
