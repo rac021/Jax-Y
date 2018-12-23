@@ -21,10 +21,11 @@ Meven dependency :
 
 **Implementation :** 
 
--    [https://github.com/rac021/G-Jax-Service-Discovery]( https://github.com/rac021/G-Jax-Service-Discovery) 
+-    [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Service-Discovery]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Service-Discovery) 
 
--    [https://github.com/rac021/G-Jax-Security-Provider]( https://github.com/rac021/G-Jax-Security-Provider) 
+-    [https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Security-Provider]( https://github.com/rac021/Jax-Y/tree/master/libs/dependencies/G-Jax-Security-Provider) 
 
 -    [https://github.com/rac021/Jax-Y]( https://github.com/rac021/Jax-Y)
 
--    [https://github.com/rac021/Jax-D]( https://github.com/rac021/Jax-D)
+-    [https://github.com/rac021/Jax-Y/tree/master/libs/extensions/Jax-D]( https://github.com/rac021/Jax-Y/tree/master/libs/extensions/Jax-D)
+
