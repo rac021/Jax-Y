@@ -7,7 +7,7 @@
 
 
 
-**G-Jax-Client** is an **UI** add-on for the projects **[Jax-Y]( https://github.com/rac021/Jax-Y)**  and **[Jax-D]( https://github.com/rac021/Jax-D)** 
+**G-Jax-Client** is an **UI** add-on for the projects **[Jax-Y]( https://github.com/rac021/Jax-Y)**  and **[Jax-D]( https://github.com/rac021/Jax-Y/tree/master/libs/extensions/Jax-D)** 
 
 ## installation
 
