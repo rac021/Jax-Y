@@ -12,7 +12,10 @@
 
 **SourceForge Download Link** : **[https://sourceforge.net/projects/jax-y/?source=typ_redirect]( https://sourceforge.net/projects/jax-y/?source=typ_redirect)** 
 
+------------------------------------------------------
 
+ # [Jaxy-2 ( Latest Version ) Available Here](https://github.com/rac021/Jaxy)
+ 
 ------------------------------------------------------
 
 **Linked Projects :** 
